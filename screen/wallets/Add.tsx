@@ -14,7 +14,7 @@ import {
 
 import A from '../../blue_modules/analytics';
 import triggerHapticFeedback, { HapticFeedbackTypes } from '../../blue_modules/hapticFeedback';
-import { BlueButtonLink, BlueFormLabel, BlueText } from '../../BlueComponents';
+import { BlueFormLabel, BlueText } from '../../BlueComponents';
 import { HDSegwitBech32Wallet, HDSegwitP2SHWallet, LightningCustodianWallet, SegwitP2SHWallet } from '../../class';
 import presentAlert from '../../components/Alert';
 import Button from '../../components/Button';
@@ -33,6 +33,7 @@ import { AddWalletStackParamList } from '../../navigation/AddWalletStack';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import SafeAreaScrollView from '../../components/SafeAreaScrollView';
 import { BlueSpacing20, BlueSpacing40 } from '../../components/BlueSpacing';
+import BlueButtonLink from '../../components/BlueButtonLink';
 
 enum ButtonSelected {
   // @ts-ignore: Return later to update
