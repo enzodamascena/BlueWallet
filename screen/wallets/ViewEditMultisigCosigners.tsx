@@ -18,11 +18,12 @@ import {
 import { Badge, Icon } from '@rneui/themed';
 import { isDesktop } from '../../blue_modules/environment';
 import { encodeUR } from '../../blue_modules/ur';
-import { BlueCard, BlueFormMultiInput, BlueTextCentered } from '../../BlueComponents';
+import { BlueCard, BlueTextCentered } from '../../BlueComponents';
 import { HDSegwitBech32Wallet, MultisigCosigner, MultisigHDWallet } from '../../class';
 import presentAlert from '../../components/Alert';
 import BottomModal, { BottomModalHandle } from '../../components/BottomModal';
 import Button from '../../components/Button';
+import BlueFormMultiInput from '../../components/BlueFormMultiInput';
 import MultipleStepsListItem, {
   MultipleStepsListItemButtonType,
   MultipleStepsListItemDashType,

@@ -2,12 +2,13 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import { Keyboard, Platform, StyleSheet, TouchableWithoutFeedback, View, TouchableOpacity, Image } from 'react-native';
-import { BlueFormLabel, BlueFormMultiInput } from '../../BlueComponents';
+import { BlueFormLabel } from '../../BlueComponents';
 import Button from '../../components/Button';
 import {
   DoneAndDismissKeyboardInputAccessory,
   DoneAndDismissKeyboardInputAccessoryViewID,
 } from '../../components/DoneAndDismissKeyboardInputAccessory';
+import BlueFormMultiInput from '../../components/BlueFormMultiInput';
 import HeaderMenuButton from '../../components/HeaderMenuButton';
 import { useTheme } from '../../components/themes';
 import { useSettings } from '../../hooks/context/useSettings';

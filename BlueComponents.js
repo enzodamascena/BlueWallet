@@ -1,7 +1,7 @@
 /* eslint react/prop-types: "off", react-native/no-inline-styles: "off" */
 import React, { forwardRef } from 'react';
-import { Dimensions, Platform, Pressable, StyleSheet, TextInput, View } from 'react-native';
-import { Icon, Text } from '@rneui/themed';
+import { Dimensions, Pressable, StyleSheet, View } from 'react-native';
+import { Text } from '@rneui/themed';
 import { useTheme } from './components/themes';
 import { useLocale } from '@react-navigation/native';
 
@@ -68,63 +68,10 @@ export const BlueFormLabel = props => {
   );
 };
 
-export const BlueFormMultiInput = props => {
-  const { colors } = useTheme();
-
-  return (
-    <TextInput
-      multiline
-      underlineColorAndroid="transparent"
-      numberOfLines={4}
-      editable={!props.editable}
-      style={{
-        paddingHorizontal: 8,
-        paddingVertical: 16,
-        flex: 1,
-        marginTop: 5,
-        marginHorizontal: 20,
-        borderColor: colors.formBorder,
-        borderBottomColor: colors.formBorder,
-        borderWidth: 1,
-        borderBottomWidth: 0.5,
-        borderRadius: 4,
-        backgroundColor: colors.inputBackgroundColor,
-        color: colors.foregroundColor,
-        textAlignVertical: 'top',
-      }}
-      autoCorrect={false}
-      autoCapitalize="none"
-      spellCheck={false}
-      {...props}
-      selectTextOnFocus={false}
-      keyboardType={Platform.OS === 'android' ? 'visible-password' : 'default'}
-    />
-  );
-};
-
 export class is {
   static ipad() {
     return isIpad;
   }
-}
-
-export function BlueBigCheckmark({ style = {} }) {
-  const defaultStyles = {
-    backgroundColor: '#ccddf9',
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    marginTop: 0,
-    marginBottom: 0,
-  };
-  const mergedStyles = { ...defaultStyles, ...style };
-  return (
-    <View style={mergedStyles}>
-      <Icon name="check" size={50} type="font-awesome" color="#0f5cc0" />
-    </View>
-  );
 }
 
 const styles = StyleSheet.create({
