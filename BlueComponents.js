@@ -36,24 +36,6 @@ export const BlueTextCentered = props => {
   const { colors } = useTheme();
   return <Text {...props} style={{ color: colors.foregroundColor, textAlign: 'center' }} />;
 };
-
-export const BlueFormLabel = props => {
-  const { colors } = useTheme();
-  const { direction } = useLocale();
-
-  return (
-    <Text
-      {...props}
-      style={{
-        color: colors.foregroundColor,
-        fontWeight: '400',
-        marginHorizontal: 20,
-        writingDirection: direction,
-      }}
-    />
-  );
-};
-
 export class is {
   static ipad() {
     return isIpad;

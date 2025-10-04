@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { ActivityIndicator, StyleSheet, TextInput, View } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { BlueFormLabel } from '../../BlueComponents';
+import { BlueFormLabel } from '../../components/BlueFormLabel';
 import { HDSegwitBech32Wallet, WatchOnlyWallet } from '../../class';
 import presentAlert from '../../components/Alert';
 import BlueFormMultiInput from '../../components/BlueFormMultiInput';

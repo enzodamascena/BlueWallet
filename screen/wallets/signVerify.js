@@ -4,7 +4,7 @@ import { ActivityIndicator, Keyboard, LayoutAnimation, Platform, ScrollView, Sty
 import { Icon } from '@rneui/themed';
 import Share from 'react-native-share';
 import triggerHapticFeedback, { HapticFeedbackTypes } from '../../blue_modules/hapticFeedback';
-import { BlueFormLabel } from '../../BlueComponents';
+import { BlueFormLabel } from '../../components/BlueFormLabel';
 import presentAlert from '../../components/Alert';
 import { FButton, FContainer } from '../../components/FloatButtons';
 import { useTheme } from '../../components/themes';
