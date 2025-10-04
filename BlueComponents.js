@@ -32,10 +32,6 @@ export const BlueText = ({ bold = false, ...props }) => {
   return <Text {...props} style={style} />;
 };
 
-export const BlueTextCentered = props => {
-  const { colors } = useTheme();
-  return <Text {...props} style={{ color: colors.foregroundColor, textAlign: 'center' }} />;
-};
 export class is {
   static ipad() {
     return isIpad;

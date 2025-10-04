@@ -5,7 +5,8 @@ import { getApplicationName, getBuildNumber, getBundleId, getUniqueIdSync, getVe
 import { Icon } from '@rneui/themed';
 import Rate, { AndroidMarket } from 'react-native-rate';
 import A from '../../blue_modules/analytics';
-import { BlueCard, BlueTextCentered } from '../../BlueComponents';
+import { BlueCard } from '../../BlueComponents';
+import BlueTextCentered from '../../components/BlueTextCentered';
 import { HDSegwitBech32Wallet } from '../../class';
 import presentAlert from '../../components/Alert';
 import Button from '../../components/Button';
