@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Text } from '@rneui/themed';
 import * as BlueElectrum from '../../blue_modules/BlueElectrum';
 import triggerHapticFeedback, { HapticFeedbackTypes } from '../../blue_modules/hapticFeedback';
-import { BlueText } from '../../BlueComponents';
+import BlueText from '../../components/BlueText';
 import BlueCard from '../../components/BlueCard';
 import { HDSegwitBech32Transaction, HDSegwitBech32Wallet } from '../../class';
 import presentAlert, { AlertType } from '../../components/Alert';

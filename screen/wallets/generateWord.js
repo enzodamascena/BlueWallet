@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Keyboard, StyleSheet, TextInput, View } from 'react-native';
 
 import { generateChecksumWords } from '../../blue_modules/checksumWords';
-import { BlueText } from '../../BlueComponents';
+import BlueText from '../../components/BlueText';
 import BlueCard from '../../components/BlueCard';
 import { randomBytes } from '../../class/rng';
 import Button from '../../components/Button';

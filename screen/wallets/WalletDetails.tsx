@@ -12,7 +12,8 @@ import {
 } from 'react-native';
 import { writeFileAndExport } from '../../blue_modules/fs';
 import triggerHapticFeedback, { HapticFeedbackTypes } from '../../blue_modules/hapticFeedback';
-import { BlueCard, BlueText } from '../../BlueComponents';
+import BlueText from '../../components/BlueText';
+import BlueCard from '../../components/BlueCard';
 import {
   HDAezeedWallet,
   HDSegwitBech32Wallet,

@@ -24,7 +24,7 @@ import {
   satoshiToBTC,
   updateExchangeRate,
 } from '../blue_modules/currency';
-import { BlueText } from '../BlueComponents';
+import BlueText from './BlueText';
 import confirm from '../helpers/confirm';
 import loc, { formatBalancePlain, formatBalanceWithoutSuffix, removeTrailingZeros } from '../loc';
 import { BitcoinUnit } from '../models/bitcoinUnits';

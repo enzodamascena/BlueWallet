@@ -3,7 +3,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Icon } from '@rneui/themed';
 import URL from 'url';
-import { BlueText } from '../../BlueComponents';
+import BlueText from '../../components/BlueText';
 import BlueCard from '../../components/BlueCard';
 import Lnurl from '../../class/lnurl';
 import Button from '../../components/Button';
