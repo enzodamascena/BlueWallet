@@ -18,7 +18,7 @@ import {
 import { Badge, Icon } from '@rneui/themed';
 import { isDesktop } from '../../blue_modules/environment';
 import { encodeUR } from '../../blue_modules/ur';
-import { BlueCard } from '../../BlueComponents';
+import BlueCard from '../../components/BlueCard';
 import BlueTextCentered from '../../components/BlueTextCentered';
 import { HDSegwitBech32Wallet, MultisigCosigner, MultisigHDWallet } from '../../class';
 import presentAlert from '../../components/Alert';

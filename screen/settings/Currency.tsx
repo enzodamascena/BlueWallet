@@ -10,7 +10,8 @@ import {
   mostRecentFetchedRate,
   setPreferredCurrency,
 } from '../../blue_modules/currency';
-import { BlueCard, BlueText } from '../../BlueComponents';
+import { BlueText } from '../../BlueComponents';
+import BlueCard from '../../components/BlueCard';
 import presentAlert from '../../components/Alert';
 import ListItem from '../../components/ListItem';
 import { useTheme } from '../../components/themes';

@@ -1,6 +1,6 @@
 /* eslint react/prop-types: "off", react-native/no-inline-styles: "off" */
 import React from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import { Text } from '@rneui/themed';
 import { useTheme } from './components/themes';
 import { useLocale } from '@react-navigation/native';
@@ -13,10 +13,6 @@ if (aspectRatio > 1.6) {
 } else {
   isIpad = true;
 }
-
-export const BlueCard = props => {
-  return <View {...props} style={{ padding: 20 }} />;
-};
 
 export const BlueText = ({ bold = false, ...props }) => {
   const { colors } = useTheme();

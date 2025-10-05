@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Keyboard, StyleSheet, TextInput, View, ScrollView, Pressable, Text } from 'react-native';
-import { BlueCard, BlueText } from '../../BlueComponents';
+import { BlueText } from '../../BlueComponents';
+import BlueCard from '../../components/BlueCard';
 import Button from '../../components/Button';
 import { useTheme } from '../../components/themes';
 import loc from '../../loc';

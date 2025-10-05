@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Image, Linking, ScrollView, StyleSheet, View } from 'react-native';
-import { BlueCard, BlueText } from '../../BlueComponents';
+import { BlueText } from '../../BlueComponents';
+import BlueCard from '../../components/BlueCard';
 import Lnurl from '../../class/lnurl';
 import Button from '../../components/Button';
 import SafeArea from '../../components/SafeArea';

@@ -17,7 +17,8 @@ import {
 import { Icon } from '@rneui/themed';
 
 import { satoshiToBTC, satoshiToLocalCurrency } from '../../blue_modules/currency';
-import { BlueCard, BlueText } from '../../BlueComponents';
+import { BlueText } from '../../BlueComponents';
+import BlueCard from '../../components/BlueCard';
 import presentAlert from '../../components/Alert';
 import Button from '../../components/Button';
 import SafeArea from '../../components/SafeArea';

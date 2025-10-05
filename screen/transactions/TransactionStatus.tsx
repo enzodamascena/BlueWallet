@@ -5,7 +5,8 @@ import { ActivityIndicator, BackHandler, StyleSheet, Text, TouchableOpacity, Vie
 import { Icon } from '@rneui/themed';
 import * as BlueElectrum from '../../blue_modules/BlueElectrum';
 import triggerHapticFeedback, { HapticFeedbackTypes } from '../../blue_modules/hapticFeedback';
-import { BlueCard, BlueText } from '../../BlueComponents';
+import { BlueText } from '../../BlueComponents';
+import BlueCard from '../../components/BlueCard';
 import { HDSegwitBech32Transaction, HDSegwitBech32Wallet } from '../../class';
 import { Transaction, TWallet } from '../../class/wallets/types';
 import Button from '../../components/Button';

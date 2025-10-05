@@ -4,7 +4,7 @@ import { ActivityIndicator, Keyboard, Linking, StyleSheet, TextInput, View } fro
 
 import * as BlueElectrum from '../../blue_modules/BlueElectrum';
 import triggerHapticFeedback, { HapticFeedbackTypes } from '../../blue_modules/hapticFeedback';
-import { BlueCard } from '../../BlueComponents';
+import BlueCard from '../../components/BlueCard';
 import BlueTextCentered from '../../components/BlueTextCentered';
 import { HDSegwitBech32Wallet } from '../../class';
 import presentAlert from '../../components/Alert';
