@@ -3,7 +3,7 @@ import * as bitcoin from 'bitcoinjs-lib';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, ScrollView, StyleSheet, View } from 'react-native';
 import presentAlert from '../../components/Alert';
-import { DynamicQRCode } from '../../components/DynamicQRCode';
+import { DynamicQRCode, DynamicQRCodeRef } from '../../components/DynamicQRCode';
 import SaveFileButton from '../../components/SaveFileButton';
 import { SquareButton } from '../../components/SquareButton';
 import { useTheme } from '../../components/themes';
@@ -26,7 +26,7 @@ const PsbtMultisigQRCode: React.FC = () => {
   const { params } = useRoute<RouteParams>();
   const { psbtBase64, isShowOpenScanner } = params;
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const dynamicQRCode = useRef<DynamicQRCode>(null);
+  const dynamicQRCode = useRef<DynamicQRCodeRef>(null);
   const isFocused = useIsFocused();
 
   const psbt = bitcoin.Psbt.fromBase64(psbtBase64);

@@ -3,7 +3,7 @@ import React, { useCallback, useMemo, useReducer, useRef } from 'react';
 import { ActivityIndicator, InteractionManager, ScrollView, StyleSheet, Text, View } from 'react-native';
 import BlueText from '../../components/BlueText';
 import { TWallet } from '../../class/wallets/types';
-import { DynamicQRCode } from '../../components/DynamicQRCode';
+import { DynamicQRCode, DynamicQRCodeRef } from '../../components/DynamicQRCode';
 import SaveFileButton from '../../components/SaveFileButton';
 import { SquareButton } from '../../components/SquareButton';
 import { useTheme } from '../../components/themes';
@@ -77,7 +77,7 @@ const ExportMultisigCoordinationSetup: React.FC = () => {
   const { wallets } = useStorage();
   const { isPrivacyBlurEnabled } = useSettings();
   const wallet: TWallet | undefined = wallets.find(w => w.getID() === walletID);
-  const dynamicQRCode = useRef<any>();
+  const dynamicQRCode = useRef<DynamicQRCodeRef>(null);
   const { colors } = useTheme();
   const { enableScreenProtect, disableScreenProtect } = useScreenProtect();
 

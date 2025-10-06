@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { Dimensions, LayoutAnimation, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from '@rneui/themed';
 
@@ -16,169 +16,151 @@ interface DynamicQRCodeProps {
   hideControls?: boolean;
 }
 
-interface DynamicQRCodeState {
-  index: number;
-  total: number;
-  qrCodeHeight: number;
-  intervalHandler: ReturnType<typeof setInterval> | number | null;
-  displayQRCode: boolean;
-  hideControls?: boolean;
+export interface DynamicQRCodeRef {
+  stopAutoMove: () => void;
+  startAutoMove: () => void;
 }
 
-export class DynamicQRCode extends Component<DynamicQRCodeProps, DynamicQRCodeState> {
-  constructor(props: DynamicQRCodeProps) {
-    super(props);
-    const qrCodeHeight = height > width ? width - 40 : width / 3;
-    const qrCodeMaxHeight = 370;
-    this.state = {
-      index: 0,
-      total: 0,
-      qrCodeHeight: Math.min(qrCodeHeight, qrCodeMaxHeight),
-      intervalHandler: null,
-      displayQRCode: true,
-    };
-  }
+export const DynamicQRCode = forwardRef<DynamicQRCodeRef, DynamicQRCodeProps>(({ value, capacity = 175, hideControls = true }, ref) => {
+  const qrCodeHeight = height > width ? width - 40 : width / 3;
+  const qrCodeMaxHeight = 370;
 
-  fragments: string[] = [];
+  const [index, setIndex] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [qrCodeHeightState] = useState(Math.min(qrCodeHeight, qrCodeMaxHeight));
+  const [intervalHandler, setIntervalHandler] = useState<ReturnType<typeof setInterval> | number | null>(null);
+  const [displayQRCode, setDisplayQRCode] = useState(true);
+  const [hideControlsState, setHideControlsState] = useState(hideControls);
 
-  componentDidMount() {
-    const { value, capacity = 175, hideControls = true } = this.props;
+  const fragments = useRef<string[]>([]);
+
+  useImperativeHandle(ref, () => ({
+    stopAutoMove,
+    startAutoMove,
+  }));
+
+  const moveToNextFragment = () => {
+    setIndex(prevIndex => {
+      if (prevIndex === total - 1) {
+        return 0;
+      } else {
+        return prevIndex + 1;
+      }
+    });
+  };
+
+  const startAutoMove = () => {
+    if (!intervalHandler) {
+      setIntervalHandler(setInterval(moveToNextFragment, 500));
+    }
+  };
+
+  const stopAutoMove = () => {
+    if (intervalHandler) {
+      clearInterval(intervalHandler);
+      setIntervalHandler(null);
+    }
+  };
+
+  const moveToPreviousFragment = () => {
+    setIndex(prevIndex => {
+      if (prevIndex > 0) {
+        return prevIndex - 1;
+      } else {
+        return total - 1;
+      }
+    });
+  };
+
+  const onError = () => {
+    console.log('Data is too large for QR Code.');
+    setDisplayQRCode(false);
+  };
+
+  useEffect(() => {
     try {
-      this.fragments = encodeUR(value, capacity);
-      this.setState(
-        {
-          total: this.fragments.length,
-          hideControls,
-          displayQRCode: true,
-        },
-        () => {
-          this.startAutoMove();
-        },
-      );
+      fragments.current = encodeUR(value, capacity);
+      setTotal(fragments.current.length);
+      setHideControlsState(hideControls);
+      setDisplayQRCode(true);
+      startAutoMove();
     } catch (e) {
       console.log(e);
-      this.setState({ displayQRCode: false, hideControls });
+      setDisplayQRCode(false);
+      setHideControlsState(hideControls);
     }
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  moveToNextFragment = () => {
-    const { index, total } = this.state;
-    if (index === total - 1) {
-      this.setState({
-        index: 0,
-      });
-    } else {
-      this.setState(state => ({
-        index: state.index + 1,
-      }));
-    }
-  };
+  const currentFragment = fragments.current[index];
 
-  startAutoMove = () => {
-    if (!this.state.intervalHandler)
-      this.setState(() => ({
-        intervalHandler: setInterval(this.moveToNextFragment, 500),
-      }));
-  };
-
-  stopAutoMove = () => {
-    clearInterval(this.state.intervalHandler as number);
-    this.setState(() => ({
-      intervalHandler: null,
-    }));
-  };
-
-  moveToPreviousFragment = () => {
-    const { index, total } = this.state;
-    if (index > 0) {
-      this.setState(state => ({
-        index: state.index - 1,
-      }));
-    } else {
-      this.setState(state => ({
-        index: total - 1,
-      }));
-    }
-  };
-
-  onError = () => {
-    console.log('Data is too large for QR Code.');
-    this.setState({ displayQRCode: false });
-  };
-
-  render() {
-    const currentFragment = this.fragments[this.state.index];
-
-    if (!currentFragment && this.state.displayQRCode) {
-      return (
-        <View>
-          <Text>{loc.send.dynamic_init}</Text>
-        </View>
-      );
-    }
-
+  if (!currentFragment && displayQRCode) {
     return (
-      <View style={animatedQRCodeStyle.container}>
-        <TouchableOpacity
-          accessibilityRole="button"
-          testID="DynamicCode"
-          onPress={() => {
-            LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-            this.setState(prevState => ({ hideControls: !prevState.hideControls }));
-          }}
-        >
-          {this.state.displayQRCode && (
-            <View style={animatedQRCodeStyle.qrcodeContainer}>
-              <QRCodeComponent
-                isLogoRendered={false}
-                value={currentFragment.toUpperCase()}
-                size={this.state.qrCodeHeight}
-                isMenuAvailable={false}
-                ecl="L"
-                onError={this.onError}
-              />
-            </View>
-          )}
-        </TouchableOpacity>
-
-        {!this.state.hideControls && (
-          <View style={animatedQRCodeStyle.container}>
-            <BlueSpacing20 />
-            <View>
-              <Text style={animatedQRCodeStyle.text}>
-                {loc.formatString(loc._.of, { number: this.state.index + 1, total: this.state.total })}
-              </Text>
-            </View>
-            <BlueSpacing20 />
-            <View style={animatedQRCodeStyle.controller}>
-              <TouchableOpacity
-                accessibilityRole="button"
-                style={[animatedQRCodeStyle.button, animatedQRCodeStyle.buttonPrev]}
-                onPress={this.moveToPreviousFragment}
-              >
-                <Text style={animatedQRCodeStyle.text}>{loc.send.dynamic_prev}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                accessibilityRole="button"
-                style={[animatedQRCodeStyle.button, animatedQRCodeStyle.buttonStopStart]}
-                onPress={this.state.intervalHandler ? this.stopAutoMove : this.startAutoMove}
-              >
-                <Text style={animatedQRCodeStyle.text}>{this.state.intervalHandler ? loc.send.dynamic_stop : loc.send.dynamic_start}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                accessibilityRole="button"
-                style={[animatedQRCodeStyle.button, animatedQRCodeStyle.buttonNext]}
-                onPress={this.moveToNextFragment}
-              >
-                <Text style={animatedQRCodeStyle.text}>{loc.send.dynamic_next}</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        )}
+      <View>
+        <Text>{loc.send.dynamic_init}</Text>
       </View>
     );
   }
-}
+
+  return (
+    <View style={animatedQRCodeStyle.container}>
+      <TouchableOpacity
+        accessibilityRole="button"
+        testID="DynamicCode"
+        onPress={() => {
+          LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+          setHideControlsState(prevState => !prevState);
+        }}
+      >
+        {displayQRCode && (
+          <View style={animatedQRCodeStyle.qrcodeContainer}>
+            <QRCodeComponent
+              isLogoRendered={false}
+              value={currentFragment.toUpperCase()}
+              size={qrCodeHeightState}
+              isMenuAvailable={false}
+              ecl="L"
+              onError={onError}
+            />
+          </View>
+        )}
+      </TouchableOpacity>
+
+      {!hideControlsState && (
+        <View style={animatedQRCodeStyle.container}>
+          <BlueSpacing20 />
+          <View>
+            <Text style={animatedQRCodeStyle.text}>{loc.formatString(loc._.of, { number: index + 1, total })}</Text>
+          </View>
+          <BlueSpacing20 />
+          <View style={animatedQRCodeStyle.controller}>
+            <TouchableOpacity
+              accessibilityRole="button"
+              style={[animatedQRCodeStyle.button, animatedQRCodeStyle.buttonPrev]}
+              onPress={moveToPreviousFragment}
+            >
+              <Text style={animatedQRCodeStyle.text}>{loc.send.dynamic_prev}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              accessibilityRole="button"
+              style={[animatedQRCodeStyle.button, animatedQRCodeStyle.buttonStopStart]}
+              onPress={intervalHandler ? stopAutoMove : startAutoMove}
+            >
+              <Text style={animatedQRCodeStyle.text}>{intervalHandler ? loc.send.dynamic_stop : loc.send.dynamic_start}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              accessibilityRole="button"
+              style={[animatedQRCodeStyle.button, animatedQRCodeStyle.buttonNext]}
+              onPress={moveToNextFragment}
+            >
+              <Text style={animatedQRCodeStyle.text}>{loc.send.dynamic_next}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}
+    </View>
+  );
+});
 
 const animatedQRCodeStyle = StyleSheet.create({
   container: {
